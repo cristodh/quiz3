@@ -1,13 +1,19 @@
+@font-face {
+    font-family: HOLI;
+    src: url(../files/Stardew-Valley-Regular.ttf);
+}
+
 body {
     width: 100vw;
     height: 100vh;
     background: black;
     color: rgb(255, 255, 255);
-    font-family: 'Courier New', Courier, monospace;
+    
     margin: 0;
     display: grid;
     place-items: center;
     overflow: hidden;
+    font-family: "HOLI",sans-serif;
 }
 
 #game .cell {

@@ -11,6 +11,7 @@ const casilla6 = document.getElementById("casilla6");
 const casilla7 = document.getElementById("casilla7");
 const casilla8 = document.getElementById("casilla8");
 
+let puedeJugarX = true
 
 
 
@@ -19,21 +20,26 @@ const casillas = [casilla0, casilla1, casilla2, casilla3, casilla4, casilla5, ca
 
 function movimientos() {
     casillas.forEach((casilla) => {
-        casilla.addEventListener("click", function () {
-            if (casilla.textContent == "") {  //condicional para evitar que se reemplace los O
-                casilla.textContent = "X"
-                setTimeout(movCirculo, 750); //retraso en la accion de la CPU
-            }
-            
-
-        })
-
+        casilla.addEventListener("click", () => movimientoX(casilla))
     });
 }
+function movimientoX(casilla) {
+    if (casilla.textContent == "" && !validarGanador() && puedeJugarX) {  //condicional para evitar que se reemplace los O
+        casilla.textContent = "X"
+        puedeJugarX = false
+        validarGanador
+        if (!validarGanador()) {
+            setTimeout(movCirculo, 750); //retraso en la accion de la CPU
+            return
+        }
+    }
+}
 function movCirculo() {  //funcion aleatoria para marcar el O
+    validarGanador
     const vacias = casillas.filter((box) => box.textContent == '')
     const numAleatorio = [Math.floor(Math.random() * vacias.length)]
     vacias[numAleatorio].textContent = 'O'
+    puedeJugarX=true
 }
 movimientos()
 
@@ -45,10 +51,12 @@ function validarGanador() {
     ]
     for (let index = 0; index < patronesGanadores.length; index++) {
         const [pos1, pos2, pos3] = patronesGanadores[index]
-        if (patronesGanadores[pos1].textContent!="" &&
-            patronesGanadores[pos1].textContent==patronesGanadores[pos2].textContent&&
-            patronesGanadores[pos1].textContent==patronesGanadores[pos3].textContent) {
+        if (casillas[pos1].textContent != "" &&
+            casillas[pos1].textContent == casillas[pos2].textContent &&
+            casillas[pos1].textContent == casillas[pos3].textContent) {
             alert("GANO!")
+           
+            return true
         }
     }
 
