@@ -10,20 +10,29 @@ const casilla5 = document.getElementById("casilla5");
 const casilla6 = document.getElementById("casilla6");
 const casilla7 = document.getElementById("casilla7");
 const casilla8 = document.getElementById("casilla8");
+const puntosX = document.getElementById("puntosX"); // Marcador para X
+const puntosO = document.getElementById("puntosO"); // Marcador para O
+
+
 
 let puedeJugarX = true;
 
 let contadorMovimientos = 0;
 
-
 // Creamos un arreglo que contenga todas esas referencias (variables)
 const casillas = [casilla0, casilla1, casilla2, casilla3, casilla4, casilla5, casilla6, casilla7, casilla8];
-
+let contador = 5
 function movimientos() {
+    setInterval(() => {
+        if (contador>0) {
+            contador--
+            console.log(contador);
+        }
+    }, 1000);
     casillas.forEach((casilla) => {
         casilla.addEventListener("click", () => movimientoX(casilla))
     });
-}
+} 
 function movimientoX(casilla) {
     if (casilla.textContent == "" && !validarGanador() && puedeJugarX) {  //condicional para evitar que se reemplace los O
         casilla.textContent = "X";
@@ -53,7 +62,9 @@ function movCirculo() {  //funcion aleatoria para marcar el O
         }
     }
 }
-
+let puntajeX = 0
+let puntajeO = 0
+puntosX.textContent = puntajeX
 function validarGanador() {
     const patronesGanadores = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], //filas
@@ -65,9 +76,19 @@ function validarGanador() {
         if (casillas[pos1].textContent != "" &&
             casillas[pos1].textContent == casillas[pos2].textContent &&
             casillas[pos1].textContent == casillas[pos3].textContent) {
-            setTimeout(function () {
-                alert("GANO!");
-            }, 500)
+            
+            if (casillas[pos1].textContent == 'X' && !puedeJugarX) {
+                document.getElementById('msgGanador').textContent = `El ganador fue X`
+                puntajeX++
+                puntosX.textContent = puntajeX
+                puedeJugarX = true
+            }
+            if (casillas[pos1].textContent == 'O') {
+                document.getElementById('msgGanador').textContent = `El ganador fue O`
+                puntajeO++
+                puntosO.textContent = puntajeO
+                return
+            }
 
 
             return true
@@ -79,12 +100,8 @@ function validarGanador() {
 
 function verificarEmpate() {
     if (contadorMovimientos === 9 && !validarGanador()) { //si el contador es mayor o igual a 9 y el validarGanador esta en false, tira alerta
-        setTimeout(function () {
-                alert("Empate!");
-            }, 500)
+        document.getElementById('msgGanador').textContent = `EMPATE!`
     }
 }
-
-
 
 movimientos()
