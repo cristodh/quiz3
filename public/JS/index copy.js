@@ -11,9 +11,8 @@ const casilla6 = document.getElementById("casilla6");
 const casilla7 = document.getElementById("casilla7");
 const casilla8 = document.getElementById("casilla8");
 
-let puedeJugarX = true;
+let puedeJugarX = true
 
-let contadorMovimientos = 0;
 
 
 // Creamos un arreglo que contenga todas esas referencias (variables)
@@ -26,17 +25,12 @@ function movimientos() {
 }
 function movimientoX(casilla) {
     if (casilla.textContent == "" && !validarGanador() && puedeJugarX) {  //condicional para evitar que se reemplace los O
-        casilla.textContent = "X";
-        contadorMovimientos++; //aqui se suma el movimiento despues de que la X juegue
+        casilla.textContent = "X"
         puedeJugarX = false
         validarGanador
         if (!validarGanador()) {
-            if (contadorMovimientos < 9) { //si contador es menor a 9, sigue la cpu jugando
-                setTimeout(movCirculo, 750); //retraso en la accion de la CPU
-            } else {
-                verificarEmpate(); //si contador es mayor a 9, se verifica si hay un empate
-            }
-            return;
+            setTimeout(movCirculo, 750); //retraso en la accion de la CPU
+            return
         }
     }
 }
@@ -44,15 +38,10 @@ function movCirculo() {  //funcion aleatoria para marcar el O
     validarGanador
     const vacias = casillas.filter((box) => box.textContent == '')
     const numAleatorio = [Math.floor(Math.random() * vacias.length)]
-    vacias[numAleatorio].textContent = 'O';
-    contadorMovimientos++; //aqui se suma al contador cuando el jugar "O" se acciona
-    puedeJugarX = true
-    if (!validarGanador()) { //si no hay un ganador (si es un false)
-        if (contadorMovimientos >= 9) { //si el contaodr es 9 o mas verifica si hay empate
-            verificarEmpate();
-        }
-    }
+    vacias[numAleatorio].textContent = 'O'
+    puedeJugarX=true
 }
+movimientos()
 
 function validarGanador() {
     const patronesGanadores = [
@@ -65,26 +54,11 @@ function validarGanador() {
         if (casillas[pos1].textContent != "" &&
             casillas[pos1].textContent == casillas[pos2].textContent &&
             casillas[pos1].textContent == casillas[pos3].textContent) {
-            setTimeout(function () {
-                alert("GANO!");
-            }, 500)
-
-
+            alert("GANO!")
+           
             return true
         }
     }
 
 }
 
-
-function verificarEmpate() {
-    if (contadorMovimientos === 9 && !validarGanador()) { //si el contador es mayor o igual a 9 y el validarGanador esta en false, tira alerta
-        setTimeout(function () {
-                alert("Empate!");
-            }, 500)
-    }
-}
-
-
-
-movimientos()
