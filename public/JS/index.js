@@ -12,8 +12,21 @@ const casilla7 = document.getElementById("casilla7");
 const casilla8 = document.getElementById("casilla8");
 const puntosX = document.getElementById("puntosX"); // Marcador para X
 const puntosO = document.getElementById("puntosO"); // Marcador para O
+const btnReniciar = document.getElementById("btnReiniciar") // Botón de reinicio partida
+const btnBoardReset = document.getElementById("btnBoardReset") // Botón de reinicio del puntaje
 
+//BOTONES
+btnReniciar.addEventListener("click", function () { //boton de reinicio
+    casillas.forEach((casilla) => casilla.textContent = "")
+    contadorMovimientos = 0
+    document.getElementById('msgGanador').textContent = ""
+    puedeJugarX = true;
+})
 
+btnBoardReset.addEventListener("click", function () {
+    puntajeX = 0; // Reinicia puntaje X
+    puntajeO = 0; // Reinicia puntaje O
+});
 
 let puedeJugarX = true;
 
@@ -21,18 +34,12 @@ let contadorMovimientos = 0;
 
 // Creamos un arreglo que contenga todas esas referencias (variables)
 const casillas = [casilla0, casilla1, casilla2, casilla3, casilla4, casilla5, casilla6, casilla7, casilla8];
-let contador = 5
+
 function movimientos() {
-    setInterval(() => {
-        if (contador>0) {
-            contador--
-            console.log(contador);
-        }
-    }, 1000);
     casillas.forEach((casilla) => {
         casilla.addEventListener("click", () => movimientoX(casilla))
     });
-} 
+}
 function movimientoX(casilla) {
     if (casilla.textContent == "" && !validarGanador() && puedeJugarX) {  //condicional para evitar que se reemplace los O
         casilla.textContent = "X";
@@ -76,18 +83,18 @@ function validarGanador() {
         if (casillas[pos1].textContent != "" &&
             casillas[pos1].textContent == casillas[pos2].textContent &&
             casillas[pos1].textContent == casillas[pos3].textContent) {
-            
+
             if (casillas[pos1].textContent == 'X' && !puedeJugarX) {
                 document.getElementById('msgGanador').textContent = `El ganador fue X`
                 puntajeX++
                 puntosX.textContent = puntajeX
                 puedeJugarX = true
             }
-            if (casillas[pos1].textContent == 'O') {
+            if (casillas[pos1].textContent == 'O' && puedeJugarX) {
                 document.getElementById('msgGanador').textContent = `El ganador fue O`
                 puntajeO++
                 puntosO.textContent = puntajeO
-                return
+                puedeJugarX = false
             }
 
 
@@ -105,3 +112,4 @@ function verificarEmpate() {
 }
 
 movimientos()
+
