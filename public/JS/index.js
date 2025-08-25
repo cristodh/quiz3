@@ -1,3 +1,4 @@
+import { postData,getData } from "./fetch.js";
 // Referenciamos todos los ids del HTML usando document.getElement
 
 const casilla0 = document.getElementById("casilla0");
@@ -14,6 +15,13 @@ const puntosO = document.getElementById("puntosO"); // Marcador para O
 const btnReniciar = document.getElementById("btnReiniciar") // Botón de reinicio partida
 const btnBoardReset = document.getElementById("btnBoardReset") // Botón de reinicio del tablero
 let turno
+
+document.getElementById('jugador').textContent = localStorage.getItem('house') // Tomamos el valor del localStorage para darle el nombre al jugador
+document.getElementById('computadora').textContent = localStorage.getItem('pcHouse') // Tomamos el valor del localStorage para darle el nombre a la computadora
+
+const CASA_USUARIO = localStorage.getItem('house');
+const CASA_PC = localStorage.getItem('pcHouse');
+
 
 const musicaFondo = new Audio("../files/musicGame.mp3");
 musicaFondo.loop = true; // Repetir indefinidamente
@@ -36,6 +44,8 @@ btnBoardReset.addEventListener("click", function () {
     puntajeO = 0; // Reinicia puntaje O
     puntosX.textContent = puntajeX
     puntosO.textContent = puntajeO
+    localStorage.setItem('conX', puntajeX);
+    localStorage.setItem('conO', puntajeO);
 });
 
 btnMusica.addEventListener("click", () => {
@@ -103,8 +113,8 @@ function movCirculo() {  //funcion aleatoria para marcar el O
         }
     }
 }
-let puntajeX = 0
-let puntajeO = 0
+let puntajeX = localStorage.getItem('conX') || 0
+let puntajeO = localStorage.getItem("conO") || 0
 puntosX.textContent = puntajeX
 puntosO.textContent = puntajeO
 
@@ -122,15 +132,31 @@ function validarGanador(turno) {
 
         if (ficha1 && ficha1 === ficha2 && ficha1 === ficha3) {
             if (ficha1 === "X" && !puedeJugarX) {
-                document.getElementById('msgGanador').textContent = `El ganador fue X`
+                document.getElementById('msgGanador').textContent = `El ganador fue ${localStorage.getItem('house')}`
                 puntajeX++
                 puntosX.textContent = puntajeX
+                const casaUsuario = {
+                    nombre_casa: CASA_USUARIO,
+                    puntos: puntajeX,
+                    esUsuario: true
+                }
+                /*
+                    Creamos un objeto para tener el nombre de la casa y los puntos
+                    SE DEBE guardar en formato JSON, transformando con el JSON.stringify
+                */
+                localStorage.setItem('casa_usuario', JSON.stringify(casaUsuario));
                 puedeJugarX = true
             }
             if (ficha1 === "O" && puedeJugarX) {
-                document.getElementById('msgGanador').textContent = `El ganador fue O`
+                document.getElementById('msgGanador').textContent = `El ganador fue ${localStorage.getItem('pcHouse')}`
                 puntajeO++
                 puntosO.textContent = puntajeO
+                const casaPC = {
+                    nombre_casa: CASA_PC,
+                    puntos: puntajeO,
+                    esUsuario: false
+                }
+                localStorage.setItem('casa_pc', JSON.stringify(casaPC));
                 puedeJugarX = false
             }
             return true
@@ -144,7 +170,19 @@ function verificarEmpate() {
         document.getElementById('msgGanador').textContent = `EMPATE!`
     }
 }
+const btnGuadarPuntaje = document.getElementById("btnGuadarPuntaje");
 
+btnGuadarPuntaje.addEventListener("click", () => {
+    const casa_usuario = JSON.parse(localStorage.getItem('casa_usuario'));
+    const casa_pc = JSON.parse(localStorage.getItem('casa_pc'));
+    if (casa_usuario) {
+        postData(casa_usuario);
+    }
+    if (casa_pc) {
+        postData(casa_pc);
+    }
+    window.location.href = "../pages/scoreboard.html";
+});
 
 
 

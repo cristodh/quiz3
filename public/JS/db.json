@@ -1,0 +1,16 @@
+{
+  "casas": [
+    {
+      "id": "cfa3",
+      "nombre_casa": "Slytherin",
+      "puntos": 2,
+      "esUsuario": true
+    },
+    {
+      "id": "de6f",
+      "nombre_casa": "Ravenclaw",
+      "puntos": 1,
+      "esUsuario": false
+    }
+  ]
+}
