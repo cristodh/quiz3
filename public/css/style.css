@@ -3,6 +3,20 @@
     src: url(../files/fuenteHarry.TTF);
 }
 
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -52,15 +66,10 @@ body {
 
 .fondo {
     position: fixed;
-    left: 0;
-    top: -250px;
-    min-width: 100%;
-    min-height: 100%;
-    width: 10%;
-    height: 10%;
+    width: auto;
+    height: auto;
     z-index: -1;
     object-fit: fill;
-
 }
 
 .ficha {
@@ -68,4 +77,6 @@ body {
     height: 100%;
     object-fit: contain;
     pointer-events: none;
+    animation: zoomIn 0.4s ease-out;
+    transform-origin: center;
 }
