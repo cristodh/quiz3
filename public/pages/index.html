@@ -9,34 +9,67 @@
 </head>
 
 <body>
-    <div class="fondo">
+    <!-- Fondo del Juego -->
+    <div class="videoFondo">
         <video src="../files/fondo.mp4" autoplay="true" muted="true" loop="true"></video>
     </div>
-    <h1>TIC-TAC-TOE</h1>
+
+    <!-- Header -->
+    <h1>⚡ Tic-Tac-Toe Mágico ⚡</h1>
     <div>
         <p id="msgGanador"></p>
     </div>
-    
-    <div id="game">
-       
-        <!--Crear ids para cada uno de los divs-->
-        <div class="cell" id="casilla0"></div>
-        <div class="cell" id="casilla1"></div>
-        <div class="cell" id="casilla2"></div>
-        <div class="cell" id="casilla3"></div>
-        <div class="cell" id="casilla4"></div>
-        <div class="cell" id="casilla5"></div>
-        <div class="cell" id="casilla6"></div>
-        <div class="cell" id="casilla7"></div>
-        <div class="cell" id="casilla8"></div>
+
+
+    <div class="columnas">
+
+        <div class="izquierda">
+
+            <!-- Tabla de marcadores -->
+
+            <div class="marcador">
+                <h2 class="titulo">Marcador</h2>
+                <div class="tabla">
+                    <div class="jugador jugador-x">
+                        <p class="nombre">Jugador</p>
+                        <p class="puntos">Puntos: <span id="puntosX">0</span></p>
+                    </div>
+                    <div class="jugador jugador-o">
+                        <p class="nombre">Computadora</p>
+                        <p class="puntos">Puntos: <span id="puntosO">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btnBoardReset" class="boton-reset">Reiniciar puntaje</button>
+        </div>
+
+        
+        <div class="derecha">
+            <!-- Grid -->
+            <div id="game">
+                
+                <div class="cell" id="casilla0"></div>
+                <div class="cell" id="casilla1"></div>
+                <div class="cell" id="casilla2"></div>
+                <div class="cell" id="casilla3"></div>
+                <div class="cell" id="casilla4"></div>
+                <div class="cell" id="casilla5"></div>
+                <div class="cell" id="casilla6"></div>
+                <div class="cell" id="casilla7"></div>
+                <div class="cell" id="casilla8"></div>
+            </div>
+            <button id="btnReiniciar">Reiniciar Encantamiento</button>
+        </div>
+        
     </div>
-    <div id="resultado" id="score"></div>
-    <p>Puntos X: <span id="puntosX">0</span></p>
-    <p>Puntos O: <span id="puntosO">0</span></p>
 
 
-    <button id="btnReiniciar">Reiniciar Partida</button>
-    <button id="btnBoardReset">Reiniciar Marcador</button>
+
+
+
+
+    <button id="btnMusica">🎵 Música: ON/OFF</button>
 
 
 

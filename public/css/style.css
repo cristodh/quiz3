@@ -4,33 +4,66 @@
 }
 
 @keyframes zoomIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {transform: scale(0);opacity: 0;}
+    60% {transform: scale(1.2);opacity: 1;}
+    100% {transform: scale(1);}
 }
 
 body {
     width: 100vw;
     height: 100vh;
-    background: black;
-    color: rgb(255, 255, 255);
     
     margin: 0;
     display: grid;
     place-items: center;
     overflow: hidden;
-    font-family: "HOLI",sans-serif;
+    font-family: "HOLI", sans-serif;
 }
 
-#game .cell{
+.videoFondo {
+    position: fixed;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: fill;
+}
+
+/* ======== Títulos ======== */
+h1 {
+    background: linear-gradient(135deg, #7f0909, #ffc500, #0e1a40);
+    -webkit-background-clip: text; /* Necesario para Chrome / Safari */
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* Para navegadores modernos */
+    color: transparent;
+    margin-bottom: 20px;
+    font-size: 50px;
+    font-family: "HOLI", sans-serif;
+}
+
+.columnas {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  column-gap: 100px;
+}
+
+.izquierda {
+  display: grid;
+  align-items: center;
+}
+.derecha {
+  display: grid;
+  ;
+}
+
+/* Grid del juego */
+#game {
+    width: 370px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+
+}
+#game .cell {
     width: 120px;
     height: 120px;
     font-size: 3rem;
@@ -50,28 +83,6 @@ body {
     transform: scale(1.05);
 }
 
-#game {
-    width: 370px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    
-}
-
-#resultado {
-    position: relative;
-    top: 10 px;
-    height: 1rem;
-}
-
-.fondo {
-    position: fixed;
-    width: auto;
-    height: auto;
-    z-index: -1;
-    object-fit: fill;
-}
-
 .ficha {
     width: 100%;
     height: 100%;
@@ -79,4 +90,99 @@ body {
     pointer-events: none;
     animation: zoomIn 0.4s ease-out;
     transform-origin: center;
+}
+
+/* Marcadores */
+
+.marcador {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: rgba(53, 76, 97, 0.5);;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  color: #fff;
+  font-family: "HOLI", sans-serif;
+  text-align: center;
+}
+
+.titulo {
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #ffd700;
+  letter-spacing: 1px;
+}
+
+.tabla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.jugador {
+  background-color: #2c2c3e;
+  padding: 15px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.jugador:hover {
+  transform: scale(1.05);
+}
+
+.nombre {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.puntos {
+  font-size: 1.5rem;
+  color: #00ffcc;
+}
+
+.jugador-x .puntos span {
+  color: #ff4c4c;
+}
+
+.jugador-o .puntos span {
+  color: #4c9aff;
+}
+
+
+
+/* ======== Botones ======== */
+#btnReiniciar {
+    background: linear-gradient(145deg, #222, #444);
+    color: #ffd700;
+    font-family: "HOLI", sans-serif;
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#btnReiniciar:hover {
+    background: #ffd700;
+    color: #111;
+    box-shadow: 0px 0px 15px #ffd700;
+}
+
+.boton-reset {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ff4c4c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-reset:hover {
+  background-color: #e03c3c;
 }

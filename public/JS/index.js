@@ -15,6 +15,14 @@ const btnReniciar = document.getElementById("btnReiniciar") // Botón de reinici
 const btnBoardReset = document.getElementById("btnBoardReset") // Botón de reinicio del tablero
 let turno
 
+const musicaFondo = new Audio("../files/musicGame.mp3");
+musicaFondo.loop = true; // Repetir indefinidamente
+musicaFondo.volume = 0.1; // Volumen
+
+const btnMusica = document.getElementById("btnMusica");
+
+
+
 //BOTONES
 btnReniciar.addEventListener("click", function () { //boton de reinicio
     casillas.forEach((casilla) => casilla.innerHTML = "")
@@ -29,6 +37,22 @@ btnBoardReset.addEventListener("click", function () {
     puntosX.textContent = puntajeX
     puntosO.textContent = puntajeO
 });
+
+btnMusica.addEventListener("click", () => {
+    if (musicaFondo.paused) {
+        musicaFondo.play();
+        btnMusica.textContent = "🎵 Música: ON";
+    } else {
+        musicaFondo.pause();
+        btnMusica.textContent = "🎵 Música: OFF";
+    }
+});
+
+document.addEventListener("click", () => {
+    if (musicaFondo.paused) {
+        musicaFondo.play();
+    }
+}, { once: true });
 
 let puedeJugarX = true;
 
@@ -97,13 +121,13 @@ function validarGanador(turno) {
         const ficha3 = casillas[pos3].querySelector("img")?.getAttribute("data-ficha");
 
         if (ficha1 && ficha1 === ficha2 && ficha1 === ficha3) {
-            if (ficha1 === "X") {
+            if (ficha1 === "X" && !puedeJugarX) {
                 document.getElementById('msgGanador').textContent = `El ganador fue X`
                 puntajeX++
                 puntosX.textContent = puntajeX
                 puedeJugarX = true
             }
-            if (ficha1 === "O") {
+            if (ficha1 === "O" && puedeJugarX) {
                 document.getElementById('msgGanador').textContent = `El ganador fue O`
                 puntajeO++
                 puntosO.textContent = puntajeO
@@ -120,5 +144,8 @@ function verificarEmpate() {
         document.getElementById('msgGanador').textContent = `EMPATE!`
     }
 }
+
+
+
 
 movimientos()
